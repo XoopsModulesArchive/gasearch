@@ -1,0 +1,62 @@
+<{* $Id: gasearch_index.html,v 1.1.1.1 2007/06/27 02:44:53 ohwada Exp $ *}>
+<{* http://code.google.com/apis/ajaxsearch/ *}>
+
+<link href="<{$xoops_url}>/modules/gasearch/gasearch.css" type="text/css" rel="stylesheet"/>
+<script src="http://www.google.com/uds/api?file=uds.js&amp;v=1.0&amp;key=<{$ga_api_key}>" type="text/javascript"></script>
+<script language="Javascript" type="text/javascript">
+//<![CDATA[
+
+function gasearch_load() 
+{
+	var gasearch_control = new GSearchControl();
+
+<{if $ga_use_site_search }>
+	var gasearch_site_search = new GwebSearch();
+	gasearch_site_search.setUserDefinedLabel( "<{$ga_site_label}>" );
+	gasearch_site_search.setUserDefinedClassSuffix( "<{$ga_site_suffix}>" );
+	gasearch_site_search.setSiteRestriction( "<{$ga_site_restriction}>" );
+	gasearch_control.addSearcher( gasearch_site_search );
+<{/if}>
+<{if $ga_use_web_search }>
+	gasearch_control.addSearcher(new GwebSearch());
+<{/if}>
+<{if $ga_use_blog_search }>
+	gasearch_control.addSearcher(new GblogSearch());
+<{/if}>
+<{if $ga_use_news_search }>
+	gasearch_control.addSearcher(new GnewsSearch());
+<{/if}>
+<{if $ga_use_book_search }>
+	gasearch_control.addSearcher(new GbookSearch());
+<{/if}>
+<{if $ga_use_video_search }>
+	gasearch_control.addSearcher(new GvideoSearch());
+<{/if}>
+<{if $ga_use_local_search }>
+	var gasearch_local_search = new GlocalSearch();
+	gasearch_control.addSearcher(gasearch_local_search);
+	gasearch_local_search.setCenterPoint( "<{$ga_local_center_point}>" );
+<{/if}>
+<{if $ga_draw_mode == "tabbed" }>
+	var gasearch_draw_options = new GdrawOptions();
+	gasearch_draw_options.setDrawMode(GSearchControl.DRAW_MODE_TABBED);
+	gasearch_control.draw(document.getElementById("gasearch_result"), gasearch_draw_options);
+<{else}>
+	gasearch_control.draw(document.getElementById("gasearch_result"));
+<{/if}>
+
+	gasearch_control.execute("<{$ga_keyword}>");
+}
+
+window.onload = gasearch_load;
+
+//]]>
+</script>
+
+<h3 align='center'><{$module_name}></h3>
+<div id="gasearch_result">Loading ...</div>
+
+<{if $is_module_admin }>
+	<br /><hr />
+	<a href="./admin/">go to admin cp</a>
+<{/if}>

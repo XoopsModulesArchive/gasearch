@@ -1,0 +1,20 @@
+/* $Id: gasearch.css,v 1.1.1.1 2007/06/27 02:44:53 ohwada Exp $ */
+
+@import url(http://www.google.com/uds/css/gsearch.css);
+
+/* overrided orginal parameter */
+.gsc-control 
+{
+/*	width: 300px;	*/
+	width: 100%;
+}
+
+table.gsc-search-box 
+{
+	border-style : none;
+	border-width : 0px;
+	border-spacing : 0px 0px;
+/*	width : 100%;	*/
+	width : 300px;
+	margin-bottom : 2px;
+}
